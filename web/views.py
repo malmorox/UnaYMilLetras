@@ -1,3 +1,19 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Article
 
-# Create your views here.
+
+def index(request):
+    all_articles = Article.objects.order_by("-publication_date")
+    context = {
+        'all_articles': all_articles
+    }
+    return render(request, "web/index.html", context)
+
+
+def detail(request, article_id):
+    article = Article.objects.get(id=article_id)
+    context = {
+        'article': article
+    }
+    return render(request, 'web/detail.html', context)

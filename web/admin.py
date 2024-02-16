@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article
+from .models import Category, Article
 
 from tinymce.widgets import TinyMCE
 from django.db import models
@@ -8,10 +8,11 @@ from django.db import models
 # Register your models here.
 
 
-class AdminArticle(admin.ModelAdmin):
+class ArticleTinyMCE(admin.ModelAdmin):
     formfield_overrides = {
-        models.TextField: {'widget': TinyMCE()}
+        models.CharField: {'widget': TinyMCE()}
     }
 
 
-admin.site.register(AdminArticle)
+admin.site.register(Category)
+admin.site.register(Article, ArticleTinyMCE)
