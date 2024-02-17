@@ -17,3 +17,8 @@ def detail(request, article_id):
         'article': article
     }
     return render(request, 'web/detail.html', context)
+
+
+#def article_list(request):
+    #articles = Article.objects.all()
+    #return render(request, 'article_list.html', {'articles': articles})

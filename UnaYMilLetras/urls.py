@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path("unaymilletras/", include("web.urls")),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
 ]
