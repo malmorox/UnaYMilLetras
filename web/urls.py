@@ -5,6 +5,8 @@ app_name = 'UnaYMilLetras'
 
 urlpatterns = [
     path('', views.index, name='article_list'),
-    #path('article/<int:pk>/', views.article_detail, name='article_detail'),
-    #path('contact/', views.contact, name='contact'),
+    path('ultimas-noticias/', views.last_news, name='article_list'),
+    # path('articulo/<int:pk>/', views.article_detail, name='article_detail'),
+    path('categoria/<int:category_id>/', views.articles_by_category, name='articles_by_category'),
+    path('contacto/', views.contact, name='contact')
 ]
