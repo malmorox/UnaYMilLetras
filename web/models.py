@@ -1,5 +1,7 @@
 from django.db import models
+from django.utils import timezone
 from tinymce.models import HTMLField
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -24,7 +26,7 @@ class Article(models.Model):
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = HTMLField()
+    content = models.TextField(max_length=255)
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
 
@@ -33,4 +35,4 @@ class Comment(models.Model):
         self.save()
 
     def __str__(self):
-        return f'Comment by {self.author} on {self.article.title}'
+        return f'Comentario de {self.author} en "{self.article.title}"'

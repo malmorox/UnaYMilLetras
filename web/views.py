@@ -6,7 +6,10 @@ from .forms import ContactForm
 
 def index(request):
     articles = Article.objects.all()
-    return render(request, 'index.html', {'articles': articles})
+    context = {
+        'articles': articles
+    }
+    return render(request, 'web/index.html', context)
 
 
 def last_news(request):
@@ -32,7 +35,7 @@ def articles_by_category(request, category_id):
         'category': category,
         'articles': articles
     }
-    return render(request, 'articles_by_category.html', context)
+    return render(request, 'web/category.html', context)
 
 
 def contact(request):
@@ -48,4 +51,8 @@ def contact(request):
             return redirect('contact_success')
     else:
         form = ContactForm()
-    return render(request, 'web/contact.html', {'form': form})
+        
+    context = {
+        'form': form
+    }
+    return render(request, 'web/contact.html', context)
