@@ -20,16 +20,16 @@ def last_news(request):
     return render(request, "web/last-news.html", context)
 
 
-def detail(request, article_id):
-    article = Article.objects.get(id=article_id)
+def detail(request, article_slug):
+    article = Article.objects.get(slug=article_slug)
     context = {
         'article': article
     }
     return render(request, 'web/detail.html', context)
 
 
-def articles_by_category(request, category_id):
-    category = Category.objects.get(id=category_id)
+def articles_by_category(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
     articles = Article.objects.filter(categories=category)
     context = {
         'category': category,
@@ -42,7 +42,7 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Procesar los datos del formulario
+            # Procesamos los datos del formulario
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             message = form.cleaned_data['message']
