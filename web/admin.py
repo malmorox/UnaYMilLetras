@@ -1,18 +1,21 @@
 from django.contrib import admin
-from .models import Category, Article
-
-from tinymce.widgets import TinyMCE
 from django.db import models
+from .models import Category, Article
+from tinymce.widgets import TinyMCE
 
 
 # Register your models here.
 
 
-class ArticleTinyMCE(admin.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title')}
     formfield_overrides = {
         models.CharField: {'widget': TinyMCE()}
     }
+    
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name')}    
 
 
-admin.site.register(Category)
-admin.site.register(Article, ArticleTinyMCE)
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(Category, CategoryAdmin)
