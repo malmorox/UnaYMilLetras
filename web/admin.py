@@ -8,13 +8,15 @@ from tinymce.widgets import TinyMCE
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title')}
+    prepopulated_fields = {'slug': ('title',)}
+    readonly_fields = ('slug',)
     formfield_overrides = {
         models.CharField: {'widget': TinyMCE()}
     }
     
 class CategoryAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name')}    
+    prepopulated_fields = {'slug': ('name',)}
+    readonly_fields = ('slug',) 
 
 
 admin.site.register(Article, ArticleAdmin)
