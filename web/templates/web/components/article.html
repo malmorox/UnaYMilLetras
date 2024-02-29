@@ -1,0 +1,34 @@
+<article class="unaymilletras-post">
+    <div class="unaymilletras-post-container">
+        <div class="unaymilletras-post-image">
+            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+        </div>
+        <div class="unaymilletras-post-info">
+            <div class="unaymilletras-post-categories">
+                <a href="{%  %}">{{ article.category.name }}
+                    {{ article.title }}
+                </a>
+            </div>
+            <h4 class="unaymilletras-post-title">  
+                <a href="{% url 'blog:article' article.slug %}" class="link">
+                    {{ article.title }}
+                </a>
+            </h4>
+            <p>{{ article.content|truncatewords:50 }}</p>
+            <p>Fecha de publicación: {{ article.publication_date }}</p>
+            <div class="unaymilletras-post-shared">
+                <div class="unaymilletras-post-shared-icons">
+                    <a href="https://www.facebook.com/sharer.php?u=link/" class="link " target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="http://twitter.com/share?url=link" class="link " target="_blank">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=link" class="link " target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

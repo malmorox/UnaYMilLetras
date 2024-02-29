@@ -1,0 +1,13 @@
+<!-- partials/footer.html -->
+<footer>
+    <div class="footer-content">
+        <p>Derechos de autor &copy; {{ year }} Mi Sitio Web</p>
+        <nav>
+            <ul>
+                <li><a href="{% url 'terms_of_service' %}">Términos de servicio</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Política de privacidad</a></li>
+                <li><a href="{% url 'contact' %}">Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>

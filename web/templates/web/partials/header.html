@@ -1,0 +1,19 @@
+<!-- partials/header.html -->
+<header class="unaymilletras-header">
+    <div class="unaymilletras-header-logo">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo de 'Una y Mil Letras'">
+        </a>
+    </div>
+    <nav class="unaymilletras-header-menu">
+        <ul>
+            <li><a href="{% url 'home' %}">Inicio</a></li>
+            <li><a href="{% url 'about' %}">Últimas noticias</a></li>
+            <li><a href="{% url 'contact' %}">Contacto</a></li>
+        </ul>
+    </nav>
+    <div class="unaymilletras-header-log-zone">
+        <a href="{% url 'signup' %}">Registrarse</a>
+        <a href="{% url 'login' %}">Iniciar sesión</a>
+    </div>
+</header>
