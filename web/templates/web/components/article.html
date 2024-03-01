@@ -1,3 +1,4 @@
+<!-- componente article.html -->
 <article class="unaymilletras-post">
     <div class="unaymilletras-post-container">
         <div class="unaymilletras-post-image">
@@ -14,6 +15,12 @@
                     {{ article.title }}
                 </a>
             </h4>
+            <div class="unaymilletras-post-author">
+                <a href="{% url 'blog:author' article.author.slug %}" class="link">
+                    <img src="{{ article.author.profile_picture.url }}" alt="{{ article.author.get_full_name }}">
+                    <span>{{ article.author.get_full_name }}</span>
+                </a>
+            </div>
             <p>{{ article.content|truncatewords:50 }}</p>
             <p>Fecha de publicación: {{ article.publication_date }}</p>
             <div class="unaymilletras-post-shared">

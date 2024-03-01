@@ -10,15 +10,9 @@
     <h1>Artículos en la categoría "{{ category.name }}"</h1>
     
     {% if articles %}
-        <ul>
-            {% for article in articles %}
-                <li>
-                    <h2>{{ article.title }}</h2>
-                    <p>{{ article.content }}</p>
-                    <p>Fecha de publicación: {{ article.publication_date }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+        {% for article in articles %}
+                
+        {% endfor %}
     {% else %}
         <p>No hay artículos en esta categoría.</p>
     {% endif %}

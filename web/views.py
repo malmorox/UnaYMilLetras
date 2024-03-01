@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.views import generic
 from django.http import HttpResponse
 from .models import Article, Category
 from .forms import ContactForm
@@ -12,12 +13,48 @@ def index(request):
     return render(request, 'web/index.html', context)
 
 
-def last_news(request):
-    last_articles = Article.objects.order_by("-publication_date")
-    context = {
-        'all_articles': last_articles
-    }
-    return render(request, "web/last-news.html", context)
+class BaseArticlesListView(generic.ListView):
+    model = Article
+    paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Puedes agregar aquí cualquier otro contexto común que necesites para todas las vistas
+        return context
+
+
+#def last_news(request):
+#    last_articles = Article.objects.order_by("-publication_date")
+#    context = {
+#        'all_articles': last_articles
+#    }
+#    return render(request, "web/last-news.html", context)
+
+
+class LastNewsListView(BaseArticlesListView):
+    template_name = 'web/last-news.html'
+    
+    def get_queryset(self):
+        return Article.objects.order_by("-publication_date")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Últimas noticias'  # Añadir un título de página
+        return context
+
+
+class ArticlesByCategoryListView(BaseArticlesListView):
+    template_name = 'web/category.html'
+    
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        category = Category.objects.get(slug=category_slug)
+        return Article.objects.filter(categories=category)
+
+
+class ArticleDetailView(generic.DetailView):
+    model = Article
+    template_name = "web/detail.html"
 
 
 def detail(request, article_slug):
@@ -26,16 +63,6 @@ def detail(request, article_slug):
         'article': article
     }
     return render(request, 'web/detail.html', context)
-
-
-def articles_by_category(request, category_slug):
-    category = Category.objects.get(slug=category_slug)
-    articles = Article.objects.filter(categories=category)
-    context = {
-        'category': category,
-        'articles': articles
-    }
-    return render(request, 'web/category.html', context)
 
 
 def contact(request):
