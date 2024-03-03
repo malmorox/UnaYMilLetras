@@ -5,14 +5,6 @@ from .models import Article, Category
 from .forms import ContactForm
 
 
-def index(request):
-    articles = Article.objects.all()
-    context = {
-        'articles': articles
-    }
-    return render(request, 'web/index.html', context)
-
-
 class BaseArticlesListView(generic.ListView):
     model = Article
     paginate_by = 6
@@ -23,12 +15,18 @@ class BaseArticlesListView(generic.ListView):
         return context
 
 
-#def last_news(request):
-#    last_articles = Article.objects.order_by("-publication_date")
-#    context = {
-#        'all_articles': last_articles
-#    }
-#    return render(request, "web/last-news.html", context)
+class IndexArticlesListView(BaseArticlesListView):
+    template_name = 'web/index.html'
+    context_object_name = 'articles' 
+    
+    def get_queryset(self):
+        return Article.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Aquí puedes agregar cualquier otro contexto que necesites
+        return context
+
 
 
 class LastNewsListView(BaseArticlesListView):

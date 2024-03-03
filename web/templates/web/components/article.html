@@ -15,14 +15,27 @@
                     {{ article.title }}
                 </a>
             </h4>
-            <div class="unaymilletras-post-author">
-                <a href="{% url 'blog:author' article.author.slug %}" class="link">
-                    <img src="{{ article.author.profile_picture.url }}" alt="{{ article.author.get_full_name }}">
-                    <span>{{ article.author.get_full_name }}</span>
-                </a>
+            <div class="unaymilletras-post-meta">
+                <span class="unaymilletras-post-author">
+                    <a href="{% url 'blog:author' article.author.slug %}" class="link">
+                        <img src="{{ article.author.profile_picture.url }}" alt="{{ article.author.get_full_name }}">
+                        <span>{{ article.author.get_full_name }}</span>
+                    </a>
+                </span>
+                <span class="unaymilletras-post-publication-date">
+                    <p> {{ article.publication_date }}</p>
+                </span>
+                <span class="unaymilletras-post-coments">
+                    <i class="fa-solid fa-x-clock"></i>
+                    {{ article.reading_time }} 
+                </span>
             </div>
             <p>{{ article.content|truncatewords:50 }}</p>
-            <p>Fecha de publicación: {{ article.publication_date }}</p>
+            <div> 
+                <button href="{% url 'blog:article' article.slug %}" class="link">
+                    <button class="unaymilletras-post-read-more">Leer más</button>
+                </button>
+            </div>
             <div class="unaymilletras-post-shared">
                 <div class="unaymilletras-post-shared-icons">
                     <a href="https://www.facebook.com/sharer.php?u=link/" class="link " target="_blank">
