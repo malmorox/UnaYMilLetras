@@ -8,7 +8,7 @@
             <div class="unaymilletras-post-categories">
                 <a href="{%  %}">{{ article.category.name }}
                     {{ article.title }}
-                </a>
+                </a> 
             </div>
             <h4 class="unaymilletras-post-title">  
                 <a href="{% url 'blog:article' article.slug %}" class="link">
@@ -23,11 +23,12 @@
                     </a>
                 </span>
                 <span class="unaymilletras-post-publication-date">
+                    <i class="fa-solid fa-x-clock"></i>
                     <p> {{ article.publication_date }}</p>
                 </span>
-                <span class="unaymilletras-post-coments">
+                <span class="unaymilletras-post-coments-count">
                     <i class="fa-solid fa-x-clock"></i>
-                    {{ article.reading_time }} 
+                    {{ article.comment_set.all|length }} 
                 </span>
             </div>
             <p>{{ article.content|truncatewords:50 }}</p>

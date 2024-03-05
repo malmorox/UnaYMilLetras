@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 from django.views import generic
 from django.http import HttpResponse
 from .models import Article, Category
@@ -53,31 +54,39 @@ class ArticlesByCategoryListView(BaseArticlesListView):
 class ArticleDetailView(generic.DetailView):
     model = Article
     template_name = "web/detail.html"
+    
 
-
-def detail(request, article_slug):
-    article = Article.objects.get(slug=article_slug)
-    context = {
-        'article': article
-    }
-    return render(request, 'web/detail.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article_slug = self.kwargs.get('slug')
+        article = Article.objects.get(slug=article_slug)
+        context['article'] = article
+        return context
 
 
 def contact(request):
     if request.method == 'POST':
-        form = ContactForm(request.POST)
-        if form.is_valid():
+        contact_form = ContactForm(request.POST)
+        if contact_form.is_valid():
             # Procesamos los datos del formulario
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            message = form.cleaned_data['message']
+            name = contact_form.cleaned_data['name']
+            email = contact_form.cleaned_data['email']
+            message = contact_form.cleaned_data['message']
             # Aquí podrías enviar un correo electrónico, guardar en la base de datos, etc.
             # Por ahora, redireccionamos a una página de éxito
+            send_mail(
+                'Nuevo mensaje de contacto',
+                f'Nombre: {name}\nEmail: {email}\nMensaje: {message}',
+                'tu@email.com',
+                ['destinatario@email.com'],
+                fail_silently=False,
+            )
+            
             return redirect('contact_success')
     else:
-        form = ContactForm()
+        contact_form = ContactForm()
         
     context = {
-        'form': form
+        'contact_form': contact_form
     }
     return render(request, 'web/contact.html', context)

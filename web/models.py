@@ -6,13 +6,22 @@ from django.utils.text import slugify
 # Create your models here.
 
 
+class Author(models.Model):
+    user = models.OneToOneField('User', on_delete=models.CASCADE)  # Relación uno a uno con el modelo User
+    photo = models.ImageField(upload_to='author_profile_pictures/', null=True, blank=True)
+    biography = models.TextField(max_length=500, blank=True)
+
+    def __str__(self):
+        return self.user.get_full_name() or self.user.username
+
+
 class Category(models.Model):
     name = models.CharField(max_length=20)
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
+        if not self.slug: # Si el slug no está definido
+            self.slug = slugify(self.name) # Genera el slug a partir del nombre en una versión legible para URL 
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -28,8 +37,8 @@ class Article(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
-        if not self.slug:  # Si el slug no está definido
-            self.slug = slugify(self.title)  # Genera el slug a partir del titulo en una versión legible para URL
+        if not self.slug: # Si el slug no está definido
+            self.slug = slugify(self.title) # Genera el slug a partir del titulo en una versión legible para URL
         super().save(*args, **kwargs)
     
     def __str__(self):  
@@ -38,7 +47,7 @@ class Article(models.Model):
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     content = models.TextField(max_length=255)
     created_date = models.DateTimeField(default=timezone.now)
     approved_comment = models.BooleanField(default=False)
