@@ -105,7 +105,14 @@ WSGI_APPLICATION = 'UnaYMilLetras.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'unaymilletras_db',
+        'USER': 'unaymilletras_admin',
+        'PASSWORD': 'unaymilletras_admin_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        }
     }
 }
 
@@ -138,8 +145,14 @@ USE_I18N = True
 
 USE_TZ = True
 
+import os
+
+# Define la ruta base de tu proyecto Django
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Define la URL base para servir archivos de medios
 MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Email Sender Config
 

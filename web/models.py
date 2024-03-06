@@ -3,13 +3,11 @@ from django.utils import timezone
 from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-# Create your models here.
 
 
 class Author(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE)  # Relación uno a uno con el modelo User
-    photo = models.ImageField(upload_to='author_profile_pictures/', null=True, blank=True)
-    biography = models.TextField(max_length=500, blank=True)
+    photo = models.ImageField(upload_to='author_photos/', null=True, blank=True)
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username

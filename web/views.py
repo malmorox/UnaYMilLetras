@@ -49,6 +49,15 @@ class ArticlesByCategoryListView(BaseArticlesListView):
         category_slug = self.kwargs.get('category_slug')
         category = Category.objects.get(slug=category_slug)
         return Article.objects.filter(categories=category)
+    
+
+class ArticlesByAuthorListView(BaseArticlesListView):
+    template_name = 'web/category.html'
+    
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        category = Category.objects.get(slug=category_slug)
+        return Article.objects.filter(categories=category)
 
 
 class ArticleDetailView(generic.DetailView):
