@@ -31,7 +31,7 @@
                     {{ article.comment_set.all|length }} 
                 </span>
             </div>
-            <p>{{ article.content|truncatewords:50 }}</p>
+            <p class="unaymilletras-post-content">{{ article.content|truncatewords:50 }}</p>
             <div> 
                 <button href="{% url 'blog:article' article.slug %}" class="link">
                     <button class="unaymilletras-post-read-more">Leer más</button>

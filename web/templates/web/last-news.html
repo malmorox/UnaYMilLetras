@@ -11,7 +11,7 @@
     <main class="unaymilletras-main-content">
         <div class="articles-container">
             {% for article in object_list %}
-                {% include 'components/article.html' with article=article %}
+                {% include 'components/post.html' with article=article %}
             {% endfor %}
         </div>
     </main>    
