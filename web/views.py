@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.views import generic
-from django.http import HttpResponse
 from .models import Article, Category
 from .forms import ContactForm
 
@@ -62,7 +61,7 @@ class ArticlesByAuthorListView(BaseArticlesListView):
 
 class ArticleDetailView(generic.DetailView):
     model = Article
-    template_name = "web/detail.html"
+    template_name = "web/article-detail.html"
     
 
     def get_context_data(self, **kwargs):
